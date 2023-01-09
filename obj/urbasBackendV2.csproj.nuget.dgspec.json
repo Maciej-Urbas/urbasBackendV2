@@ -14,13 +14,13 @@
         "outputPath": "C:\\Users\\macie\\Desktop\\Projects v2\\urbasBackendV2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\macie\\Desktop\\Projects v2\\urbasBackendV2\\NuGet.Config",
           "C:\\Users\\macie\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
