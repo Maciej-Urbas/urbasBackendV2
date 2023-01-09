@@ -1,6 +1,6 @@
 namespace urbasBackendV2.Models;
 
-public class MdUser
+public class MdUsers
 {
     public long Id { get; set; }
     

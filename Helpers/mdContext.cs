@@ -9,5 +9,5 @@ public class MdContext: DbContext
     {
     }
 
-    public DbSet<MdUser> users { get; set; } = null!;
+    public DbSet<MdUsers> mdUsers { get; set; } = null!;
 }
