@@ -11,9 +11,9 @@ namespace urbasBackendV2.Controllers
     [ApiController]
     public class mdUsersController : ControllerBase
     {
-        private readonly MdContext _context;
+        private readonly UbContext _context;
 
-        public mdUsersController(MdContext context)
+        public mdUsersController(UbContext context)
         {
             _context = context;
         }

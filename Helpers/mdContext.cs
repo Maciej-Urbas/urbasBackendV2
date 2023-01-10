@@ -3,9 +3,9 @@ using urbasBackendV2.Models;
 
 namespace urbasBackendV2.Helpers;
 
-public class MdContext: DbContext
+public class UbContext: DbContext
 {
-    public MdContext(DbContextOptions<MdContext> options) : base(options)
+    public UbContext(DbContextOptions<UbContext> options) : base(options)
     {
     }
 
