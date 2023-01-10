@@ -12,7 +12,7 @@ content-type: application/json
 
 {   
     "id": 1,
-    "login": "Maciek",
+    "login": "MaciekMD",
     "password": "4321"
 }
 
@@ -25,8 +25,8 @@ content-type: application/json
 
 {
     "id": 1,
-    "login": "Maciek",
-    "password": "1234"
+    "login": "MD_Maciej",
+    "password": "MdMaciej1$%2"
 }
 
 ###
@@ -35,6 +35,6 @@ content-type: application/json
 
 {
     "id": 2,
-    "login": "Daria",
-    "password": "1234"
+    "login": "MD_Daria",
+    "password": "MdDaria1$%2"
 }
