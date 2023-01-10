@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "NfinuWUVQnnLFecUfVndKWcPbJkoaE/wex7VNaT9f+4VebL2wJrsOPBwzQXiBCzpiEsOhtDBSe7eJSmyN4Hkmg==",
+  "dgSpecHash": "giIoz2MLl2OzB+baxzkOuqWrgv3Z78PPGjbH29w5t1FlBgSIURVZpW5097pDlrepxuIo4umSpwXZinXuvilSkQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\macie\\Desktop\\Projects v2\\urbasBackendV2\\urbasBackendV2.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\macie\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\macie\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\macie\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.0\\microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",

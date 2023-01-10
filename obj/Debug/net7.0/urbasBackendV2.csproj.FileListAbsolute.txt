@@ -276,3 +276,6 @@ C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\runtimes\unix
 C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\macie\Desktop\Projects v2\urbasBackendV2\bin\Debug\net7.0\BCrypt.Net-Next.dll
