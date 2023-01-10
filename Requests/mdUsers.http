@@ -1,0 +1,40 @@
+GET http://localhost:5281/api/mdUsers HTTP/1.1
+
+###
+GET http://localhost:5281/api/mdUsers/1 HTTP/1.1
+
+###
+GET http://localhost:5281/api/mdUsers/2 HTTP/1.1
+
+###
+PUT http://localhost:5281/api/mdUsers/1 HTTP/1.1
+content-type: application/json
+
+{   
+    "id": 1,
+    "login": "Maciek",
+    "password": "4321"
+}
+
+###
+DELETE http://localhost:5281/api/mdUsers/1 HTTP/1.1
+
+###
+POST http://localhost:5281/api/mdUsers HTTP/1.1
+content-type: application/json
+
+{
+    "id": 1,
+    "login": "Maciek",
+    "password": "1234"
+}
+
+###
+POST http://localhost:5281/api/mdUsers HTTP/1.1
+content-type: application/json
+
+{
+    "id": 2,
+    "login": "Daria",
+    "password": "1234"
+}
