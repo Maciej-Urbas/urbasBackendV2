@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+using urbasBackendV2.Dtos;
 using urbasBackendV2.Helpers;
 using urbasBackendV2.Models;
 
@@ -18,23 +20,23 @@ namespace urbasBackendV2.Controllers
 
         // GET: api/mdUsers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MdUsers>>> GetmdUsers()
+        public async Task<ActionResult<IEnumerable<MdUsersDto>>> GetmdUsers()
         {
-          if (_context.mdUsers == null)
-          {
-              return NotFound();
-          }
-            return await _context.mdUsers.ToListAsync();
+            if (_context.mdUsers == null)
+            {
+                return NotFound();
+            }
+            return await _context.mdUsers.Select(x => ItemToDTO(x)).ToListAsync();
         }
 
         // GET: api/mdUsers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MdUsers>> GetMdUsers(long id)
+        public async Task<ActionResult<MdUsersDto>> GetMdUsers(long id)
         {
-          if (_context.mdUsers == null)
-          {
-              return NotFound();
-          }
+            if (_context.mdUsers == null)
+            {
+                return NotFound();
+            }
             var mdUsers = await _context.mdUsers.FindAsync(id);
 
             if (mdUsers == null)
@@ -42,35 +44,35 @@ namespace urbasBackendV2.Controllers
                 return NotFound();
             }
 
-            return mdUsers;
+            return ItemToDTO(mdUsers);
         }
 
         // PUT: api/mdUsers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMdUsers(long id, MdUsers mdUsers)
+        public async Task<IActionResult> PutMdUsers(long id, MdUsersDto mdUsersDto)
         {
-            if (id != mdUsers.Id)
+            if (id != mdUsersDto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(mdUsers).State = EntityState.Modified;
+            var mdUser = await _context.mdUsers.FindAsync(id);
+            if (mdUser == null)
+            {
+                return NotFound();
+            }
 
-            try
+            mdUser.Login = mdUsersDto.Login;
+            mdUser.Password = mdUsersDto.Password;
+
+            try 
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException) when (!MdUsersExists(id))
             {
-                if (!MdUsersExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return NoContent();
@@ -79,16 +81,18 @@ namespace urbasBackendV2.Controllers
         // POST: api/mdUsers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MdUsers>> PostMdUsers(MdUsers mdUsers)
+        public async Task<ActionResult<MdUsersDto>> PostMdUsers(MdUsersDto mdUsersDto)
         {
-          if (_context.mdUsers == null)
-          {
-              return Problem("Entity set 'MdContext.mdUsers'  is null.");
-          }
-            _context.mdUsers.Add(mdUsers);
+            var mdUser = new MdUsers
+            {
+                Login = mdUsersDto.Login,
+                Password = mdUsersDto.Password
+            };
+
+            _context.mdUsers.Add(mdUser);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMdUsers", new { id = mdUsers.Id }, mdUsers);
+            return CreatedAtAction(nameof(GetMdUsers), new {id = mdUser.Id}, ItemToDTO(mdUser));
         }
 
         // DELETE: api/mdUsers/5
@@ -115,5 +119,13 @@ namespace urbasBackendV2.Controllers
         {
             return (_context.mdUsers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        private static MdUsersDto ItemToDTO(MdUsers mdUser) =>
+        new MdUsersDto
+        {
+            Id = mdUser.Id,
+            Login = mdUser.Login,
+            Password = mdUser.Password
+        };
     }
 }
