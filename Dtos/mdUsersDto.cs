@@ -1,12 +1,10 @@
-namespace urbasBackendV2.Models;
+namespace urbasBackendV2.Dtos;
 
-public class MdUsers
+public class MdUsersDto
 {
     public long Id { get; set; }
     
     public string? Login { get; set; }
 
     public string? Password { get; set; }
-
-    public string? Secret { get; set; }
 }
