@@ -1,3 +1,4 @@
+
 GET http://localhost:5281/api/mdUsers HTTP/1.1
 
 ###
@@ -5,6 +6,9 @@ GET http://localhost:5281/api/mdUsers/1 HTTP/1.1
 
 ###
 GET http://localhost:5281/api/mdUsers/2 HTTP/1.1
+
+###
+GET http://localhost:5281/api/mdUsers/10002 HTTP/1.1
 
 ###
 PUT http://localhost:5281/api/mdUsers/1 HTTP/1.1
@@ -37,4 +41,14 @@ content-type: application/json
     "Id": "2",
     "login": "MD_Daria",
     "password": "MdDaria1$%2"
+}
+
+###
+POST http://localhost:5281/api/mdUsers HTTP/1.1
+content-type: application/json
+
+{
+    "Id": "3",
+    "login": "Test1",
+    "password": "HasloTest1"
 }
