@@ -12,9 +12,9 @@ public interface IMdUsersService
 {
     Task<IEnumerable<MdUsersDto>> GetMdUsers();
     Task<MdUsersDto> GetMdUser(long id);
-    // Task<MdUsersDto> PutMdUser(long id, MdUsersDto mdUsersDto);
-    // void PostMdUsers(MdUsersDto mdUsersDto);
-    // void DeleteMdUsers(long id);
+    Task<MdUsersDto> PutMdUser(long id, MdUsersDto mdUsersDto);
+    Task<MdUsersDto> PostMdUser(MdUsersDto mdUsersDto);
+    Task<MdUsersDto> DeleteMdUser(long id);
 }
 
 public class MdUsersService : IMdUsersService
@@ -54,8 +54,50 @@ public class MdUsersService : IMdUsersService
         return UserToDTO(mdUsers);
     }
     
-    // public async PutMdUser(long id, MdUsersDto mdUsersDto)
-    // {
+    public async Task<MdUsersDto> PutMdUser(long id, MdUsersDto mdUsersDto)
+    {
+        var mdUsers = await _context.mdUsers.FindAsync(id);
+
+        if(mdUsers != null)
+        {
+            mdUsers.Login = mdUsersDto.Login;
+            mdUsers.Password = mdUsersDto.Password;
+        }
+        else
+        {
+            return null;
+        }
+
+        await _context.SaveChangesAsync();
+        return UserToDTO(mdUsers);
+    }
+
+    public async Task<MdUsersDto> PostMdUser(MdUsersDto mdUsersDto)
+    {
+        var mdUser = new MdUsers
+        {
+            Login = mdUsersDto.Login,
+            Password = mdUsersDto.Password
+        };
+
+        _context.mdUsers.Add(mdUser);
+        await _context.SaveChangesAsync();
+
+        return UserToDTO(mdUser);
+    }
+
+    public async Task<MdUsersDto> DeleteMdUser(long id)
+    {
+        var mdUser = await _context.mdUsers.FindAsync(id);
         
-    // }
+        if (mdUser == null)
+        {
+            return null;
+        }
+
+        _context.mdUsers.Remove(mdUser);
+        await _context.SaveChangesAsync();
+
+        return UserToDTO(mdUser);
+    }
 }

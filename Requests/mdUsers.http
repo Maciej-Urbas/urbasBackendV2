@@ -11,24 +11,23 @@ GET http://localhost:5281/api/mdUsers/2 HTTP/1.1
 GET http://localhost:5281/api/mdUsers/10002 HTTP/1.1
 
 ###
-PUT http://localhost:5281/api/mdUsers/1 HTTP/1.1
+PUT http://localhost:5281/api/mdUsers/10002 HTTP/1.1
 content-type: application/json
 
 {   
-    "id": 1,
-    "login": "MaciekMD",
-    "password": "4321"
+    "id": 10002,
+    "login": "test",
+    "password": "testpasswd"
 }
 
 ###
-DELETE http://localhost:5281/api/mdUsers/3 HTTP/1.1
+DELETE http://localhost:5281/api/mdUsers/20005 HTTP/1.1
 
 ###
 POST http://localhost:5281/api/mdUsers HTTP/1.1
 content-type: application/json
 
 {
-    "Id": "1",
     "login": "MD_Maciej",
     "password": "MdMaciej1$%2"
 }
@@ -38,7 +37,6 @@ POST http://localhost:5281/api/mdUsers HTTP/1.1
 content-type: application/json
 
 {
-    "Id": "2",
     "login": "MD_Daria",
     "password": "MdDaria1$%2"
 }
@@ -48,7 +46,6 @@ POST http://localhost:5281/api/mdUsers HTTP/1.1
 content-type: application/json
 
 {
-    "Id": "3",
-    "login": "Test1",
-    "password": "HasloTest1"
+    "login": "Test4",
+    "password": "HasloTest5"
 }

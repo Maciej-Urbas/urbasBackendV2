@@ -38,32 +38,9 @@ namespace urbasBackendV2.Controllers
         // PUT: api/mdUsers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMdUsers(long id, MdUsersDto mdUsersDto)
+        public async Task<ActionResult<MdUsersDto>> PutMdUsers(long id, MdUsersDto mdUsersDto)
         {
-            if (id != mdUsersDto.Id)
-            {
-                return BadRequest();
-            }
-
-            var mdUser = await _context.mdUsers.FindAsync(id);
-            if (mdUser == null)
-            {
-                return NotFound();
-            }
-
-            mdUser.Login = mdUsersDto.Login;
-            mdUser.Password = mdUsersDto.Password;
-
-            try 
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!MdUsersExists(id))
-            {
-                return NotFound();
-            }
-
-            return NoContent();
+            return await _mdUsersService.PutMdUser(id, mdUsersDto);
         }
 
         // POST: api/mdUsers
@@ -71,36 +48,14 @@ namespace urbasBackendV2.Controllers
         [HttpPost]
         public async Task<ActionResult<MdUsersDto>> PostMdUsers(MdUsersDto mdUsersDto)
         {
-            var mdUser = new MdUsers
-            {
-                Login = mdUsersDto.Login,
-                Password = mdUsersDto.Password
-            };
-
-            _context.mdUsers.Add(mdUser);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetMdUsers), new {id = mdUser.Id}, ItemToDTO(mdUser));
+            return await _mdUsersService.PostMdUser(mdUsersDto);
         }
 
         // DELETE: api/mdUsers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMdUsers(long id)
+        public async Task<ActionResult<MdUsersDto>> DeleteMdUsers(long id)
         {
-            if (_context.mdUsers == null)
-            {
-                return NotFound();
-            }
-            var mdUsers = await _context.mdUsers.FindAsync(id);
-            if (mdUsers == null)
-            {
-                return NotFound();
-            }
-
-            _context.mdUsers.Remove(mdUsers);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _mdUsersService.DeleteMdUser(id);
         }
 
         private bool MdUsersExists(long id)
