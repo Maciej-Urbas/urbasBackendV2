@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using urbasBackendV2.Dtos;
 using urbasBackendV2.Helpers;
 using urbasBackendV2.Models;
+using urbasBackendV2.Services;
 
 namespace urbasBackendV2.Controllers
 {
@@ -12,39 +13,26 @@ namespace urbasBackendV2.Controllers
     public class mdUsersController : ControllerBase
     {
         private readonly UbContext _context;
+        private IMdUsersService _mdUsersService;
 
-        public mdUsersController(UbContext context)
+        public mdUsersController(UbContext context, IMdUsersService mdUsersService)
         {
             _context = context;
+            _mdUsersService = mdUsersService;
         }
 
         // GET: api/mdUsers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MdUsersDto>>> GetmdUsers()
+        public async Task<ActionResult<IEnumerable<MdUsersDto>>> GetMdUsers()
         {
-            if (_context.mdUsers == null)
-            {
-                return NotFound();
-            }
-            return await _context.mdUsers.Select(x => ItemToDTO(x)).ToListAsync();
+            return Ok(await _mdUsersService.GetMdUsers());
         }
 
         // GET: api/mdUsers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MdUsersDto>> GetMdUsers(long id)
         {
-            if (_context.mdUsers == null)
-            {
-                return NotFound();
-            }
-            var mdUsers = await _context.mdUsers.FindAsync(id);
-
-            if (mdUsers == null)
-            {
-                return NotFound();
-            }
-
-            return ItemToDTO(mdUsers);
+            return Ok(await _mdUsersService.GetMdUser(id));
         }
 
         // PUT: api/mdUsers/5
