@@ -1,6 +1,7 @@
-using AutoMapper;
-using BCrypt.Net;
+
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 using urbasBackendV2.Dtos;
 using urbasBackendV2.Helpers;
@@ -11,21 +12,22 @@ namespace urbasBackendV2.Services;
 public interface IMdUsersService
 {
     Task<IEnumerable<MdUsersDto>> GetMdUsers();
-    Task<MdUsersDto> GetMdUser(long id);
-    Task<MdUsersDto> PutMdUser(long id, MdUsersDto mdUsersDto);
-    Task<MdUsersDto> PostMdUser(MdUsersDto mdUsersDto);
-    Task<MdUsersDto> DeleteMdUser(long id);
+    Task<MdUsersDto> GetMdUser(int id);
+    Task<MdUsersDto> PutMdUser(int id, MdUsersDto mdUsersDto);
+    Task<MdUsersTokenDto> PostMdUser(MdUsersDto mdUsersDto);
+    Task<MdUsersDto> DeleteMdUser(int id);
+    Task<MdUsersDto> Login(MdUsersDto mdUsersDto);
 }
 
 public class MdUsersService : IMdUsersService
 {
     private UbContext _context;
-    private readonly IMapper _mapper;
+    private IMdUsersTokenService _mdUsersTokenService;
 
-    public MdUsersService(UbContext context, IMapper mapper)
+    public MdUsersService(UbContext context, IMdUsersTokenService mdUsersTokenService)
     {
         _context = context;
-        _mapper = mapper;
+        _mdUsersTokenService = mdUsersTokenService;
     }
 
     // UserToDTO Helper
@@ -34,7 +36,7 @@ public class MdUsersService : IMdUsersService
         {
             Id = mdUser.Id,
             Login = mdUser.Login,
-            Password = mdUser.Password
+            Password = "####"
         };
 
     public async Task<IEnumerable<MdUsersDto>> GetMdUsers()
@@ -42,62 +44,63 @@ public class MdUsersService : IMdUsersService
         return await _context.mdUsers.Select(x => UserToDTO(x)).ToListAsync();
     }    
 
-    public async Task<MdUsersDto> GetMdUser(long id)
+    public async Task<MdUsersDto> GetMdUser(int id)
     {
         var mdUsers = await _context.mdUsers.FindAsync(id);
-
-        if (mdUsers == null)
-        {
-            return null;
-        }
 
         return UserToDTO(mdUsers);
     }
     
-    public async Task<MdUsersDto> PutMdUser(long id, MdUsersDto mdUsersDto)
+    public async Task<MdUsersDto> PutMdUser(int id, MdUsersDto mdUsersDto)
     {
+        var hmac = new HMACSHA512();
+
         var mdUsers = await _context.mdUsers.FindAsync(id);
-
-        if(mdUsers != null)
-        {
-            mdUsers.Login = mdUsersDto.Login;
-            mdUsers.Password = mdUsersDto.Password;
-        }
-        else
-        {
-            return null;
-        }
-
+        mdUsers.Login = mdUsersDto.Login;
+        mdUsers.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(mdUsersDto.Password));
+        
         await _context.SaveChangesAsync();
         return UserToDTO(mdUsers);
     }
 
-    public async Task<MdUsersDto> PostMdUser(MdUsersDto mdUsersDto)
+    public async Task<MdUsersTokenDto> PostMdUser(MdUsersDto mdUsersDto)
     {
+        var hmac = new HMACSHA512();
+        
         var mdUser = new MdUsers
         {
             Login = mdUsersDto.Login,
-            Password = mdUsersDto.Password
+            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(mdUsersDto.Password)),
+            PasswordSalt = hmac.Key,
         };
 
         _context.mdUsers.Add(mdUser);
         await _context.SaveChangesAsync();
 
-        return UserToDTO(mdUser);
+        return new MdUsersTokenDto
+        {
+            Login = mdUser.Login,
+            Token = _mdUsersTokenService.CreateToken(mdUser),
+        };
     }
 
-    public async Task<MdUsersDto> DeleteMdUser(long id)
+    public async Task<MdUsersDto> DeleteMdUser(int id)
     {
         var mdUser = await _context.mdUsers.FindAsync(id);
-        
-        if (mdUser == null)
-        {
-            return null;
-        }
 
         _context.mdUsers.Remove(mdUser);
         await _context.SaveChangesAsync();
 
         return UserToDTO(mdUser);
+    }
+
+    public async Task<MdUsersDto>Login(MdUsersDto mdUsersDto)
+    {
+        var user = await _context.mdUsers.SingleOrDefaultAsync(x => x.Login == mdUsersDto.Login);
+
+        var hmac = new HMACSHA512(user.PasswordSalt);
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(mdUsersDto.Password));
+
+        return UserToDTO(user);
     }
 }

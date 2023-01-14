@@ -1,5 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.IdentityModel.Tokens;
 using urbasBackendV2.Helpers;
 using urbasBackendV2.Services;
 
@@ -12,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // Rejestrowanie kontekstu BD wewnątz aplikacji (InMemoryDatabase)
 // Pozniej zamienic na polaczenie z BD
 // builder.Services.AddDbContext<UbContext>(opt => opt.UseInMemoryDatabase("MasterDesigner"));
@@ -19,13 +22,28 @@ builder.Services.AddSwaggerGen();
 // Nawiazanie polaczenia z BD
 builder.Services.AddDbContext<UbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("urbasBackendV2Connection")));
 
-// Implementacja serwisu wraz z interfejsem
-// configure DI for application services
-builder.Services.AddScoped<IMdUsersService, MdUsersService>();
-builder.Services.AddTransient<IMdUsersService, MdUsersService>();
+// Dodanie serwisu MdUsersTokenService wraz z interfejsem
+builder.Services.AddScoped<IMdUsersTokenService, MdUsersTokenService>();
 
-// Dodanie odniesienia do AutoMappera
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+// Wdrozenie Autoryzacji i Autentykacji dla mdUsers
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration ["TokenKey"])),
+                        ValidateIssuer = false,
+
+                        ValidateAudience = false,
+                    };
+                });
+
+// Implementacja serwisu MdUsersService wraz z interfejsem
+builder.Services.AddScoped<IMdUsersService, MdUsersService>();
+
+// AddCors pozwoli na wysylanie zapytan z innych stron np. przez fetch()
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -38,6 +56,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Wdrozenie Autoryzacji i Autentykacji dla mdUsers ciag dalszy
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

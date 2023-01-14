@@ -3,19 +3,22 @@ GET http://localhost:5281/api/mdUsers HTTP/1.1
 
 ###
 GET http://localhost:5281/api/mdUsers/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJNRF9NYWNpZWoiLCJuYmYiOjE2NzM2NjAwNzUsImV4cCI6MTY3NDI2NDg3NSwiaWF0IjoxNjczNjYwMDc1fQ.8pMAtGR1yfKoo1ioZ92cvWPyYPxy57I4AoIEhxWhI6vcf1EfiylL9S8ZJ0q3EKXXv4Nqwd3z6iH8Fs8U-X87tA
 
 ###
-GET http://localhost:5281/api/mdUsers/2 HTTP/1.1
+POST http://localhost:5281/api/mdUsers/createToken HTTP/1.1
+content-type: application/json
+
+{
+    "login": "MD_Maciej",
+    "password": "MdMaciej1$%2"
+}
 
 ###
-GET http://localhost:5281/api/mdUsers/10002 HTTP/1.1
-
-###
-PUT http://localhost:5281/api/mdUsers/10002 HTTP/1.1
+PUT http://localhost:5281/api/mdUsers/3 HTTP/1.1
 content-type: application/json
 
 {   
-    "id": 10002,
     "login": "test",
     "password": "testpasswd"
 }
@@ -46,6 +49,15 @@ POST http://localhost:5281/api/mdUsers HTTP/1.1
 content-type: application/json
 
 {
-    "login": "Test4",
+    "login": "Test5",
     "password": "HasloTest5"
+}
+
+###
+POST http://localhost:5281/api/mdUsers/login HTTP/1.1
+content-type: application/json
+
+{
+    "login": "MD_Maciej",
+    "password": "MdMaciej1$%2"
 }
