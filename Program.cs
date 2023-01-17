@@ -56,7 +56,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Pozwolenie na Cross-Origin Resource Sharing
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseHttpsRedirection();    
 
 // Wdrozenie Autoryzacji i Autentykacji dla mdUsers ciag dalszy
 app.UseAuthentication();
