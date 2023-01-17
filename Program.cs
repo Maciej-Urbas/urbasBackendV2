@@ -41,6 +41,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Implementacja serwisu MdUsersService wraz z interfejsem
 builder.Services.AddScoped<IMdUsersService, MdUsersService>();
+// Implementacja serwisu MdMessagesService wraz z interfejsem
+builder.Services.AddScoped<IMdMessagesService, MdMessagesService>();
 
 // AddCors pozwoli na wysylanie zapytan z innych stron np. przez fetch()
 builder.Services.AddCors();

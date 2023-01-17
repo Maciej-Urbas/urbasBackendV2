@@ -10,4 +10,5 @@ public class UbContext: DbContext
     }
 
     public DbSet<MdUsers> mdUsers { get; set; } = null!;
+    public DbSet<MdMessages> mdMessages { get; set; } = null!;
 }

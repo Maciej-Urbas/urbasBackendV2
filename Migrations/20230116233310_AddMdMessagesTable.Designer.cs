@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using urbasBackendV2.Helpers;
 
@@ -10,9 +11,11 @@ using urbasBackendV2.Helpers;
 namespace urbasBackendV2.Migrations
 {
     [DbContext(typeof(UbContext))]
-    partial class UbContextModelSnapshot : ModelSnapshot
+    [Migration("20230116233310_AddMdMessagesTable")]
+    partial class AddMdMessagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

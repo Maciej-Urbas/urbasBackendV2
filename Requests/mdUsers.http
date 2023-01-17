@@ -1,4 +1,3 @@
-
 GET http://localhost:5281/api/mdUsers HTTP/1.1
 
 ###

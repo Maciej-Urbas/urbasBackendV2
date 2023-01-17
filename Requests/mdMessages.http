@@ -1,0 +1,90 @@
+GET http://localhost:5281/api/mdMessages HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJNRF9NYWNpZWoiLCJuYmYiOjE2NzM5MDk4NDcsImV4cCI6MTY3NDUxNDY0NywiaWF0IjoxNjczOTA5ODQ3fQ.PhVjNRsUdbPgwG6O-PUAoTDULyrCjvQ7airk93cRAw6qy2WFX25vRP8wl3uawdNIQp7dxDCYjZar2gwkWtOdFQ
+
+###
+GET http://localhost:5281/api/mdMessages/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJNRF9NYWNpZWoiLCJuYmYiOjE2NzM5MDk4NDcsImV4cCI6MTY3NDUxNDY0NywiaWF0IjoxNjczOTA5ODQ3fQ.PhVjNRsUdbPgwG6O-PUAoTDULyrCjvQ7airk93cRAw6qy2WFX25vRP8wl3uawdNIQp7dxDCYjZar2gwkWtOdFQ
+
+###
+PUT http://localhost:5281/api/mdMessages/3 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJNRF9NYWNpZWoiLCJuYmYiOjE2NzM5MDk4NDcsImV4cCI6MTY3NDUxNDY0NywiaWF0IjoxNjczOTA5ODQ3fQ.PhVjNRsUdbPgwG6O-PUAoTDULyrCjvQ7airk93cRAw6qy2WFX25vRP8wl3uawdNIQp7dxDCYjZar2gwkWtOdFQ
+content-type: application/json
+
+{   
+    "Name": "Test1",
+    "Email": "Test1@gmail.com",
+    "Topic": "Test1Topic",
+    "Content": "Test1Content",
+    "IpAddress": "Test1IpAddress",
+    "State": 1
+}
+
+###
+DELETE http://localhost:5281/api/mdMessages/2 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJNRF9NYWNpZWoiLCJuYmYiOjE2NzM5MDk4NDcsImV4cCI6MTY3NDUxNDY0NywiaWF0IjoxNjczOTA5ODQ3fQ.PhVjNRsUdbPgwG6O-PUAoTDULyrCjvQ7airk93cRAw6qy2WFX25vRP8wl3uawdNIQp7dxDCYjZar2gwkWtOdFQ
+
+###
+POST http://localhost:5281/api/mdMessages HTTP/1.1
+content-type: application/json
+
+{
+    "Name": "Test1",
+    "Email": "Test1@gmail.com",
+    "Topic": "Test1Topic",
+    "Content": "Test1Content2",
+    "IpAddress": "Test1IpAddress",
+    "State": 0
+}
+
+###
+POST http://localhost:5281/api/mdMessages HTTP/1.1
+content-type: application/json
+
+{
+    "Name": "Test6",
+    "Email": "Test6@gmail.com",
+    "Topic": "Test6Topic",
+    "Content": "Test6Content",
+    "IpAddress": "Test1IpAddress",
+    "State": 0
+}
+
+###
+POST http://localhost:5281/api/mdMessages HTTP/1.1
+content-type: application/json
+
+{   
+    "Name": "Test3",
+    "Email": "Test3@gmail.com",
+    "Topic": "Test3Topic",
+    "Content": "Test3Content",
+    "IpAddress": "Test1IpAddress",
+    "State": 0
+}
+
+
+###
+POST http://localhost:5281/api/mdMessages HTTP/1.1
+content-type: application/json
+
+{   
+    "Name": "Test4",
+    "Email": "Test4@gmail.com",
+    "Topic": "Test4Topic",
+    "Content": "Test4Content",
+    "IpAddress": "Test1IpAddress",
+    "State": 0
+}
+
+###
+POST http://localhost:5281/api/mdMessages HTTP/1.1
+content-type: application/json
+
+{
+    "Name": "Test5",
+    "Email": "Test5@gmail.com",
+    "Topic": "Test5Topic",
+    "Content": "Test5Content",
+    "IpAddress": "Test5IpAddress",
+    "State": 0
+}
