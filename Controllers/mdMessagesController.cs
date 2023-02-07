@@ -11,7 +11,7 @@ using urbasBackendV2.Services;
 
 namespace urbasBackendV2.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/mdMessages")]
     [ApiController]
     public class mdMessagesController : ControllerBase
     {

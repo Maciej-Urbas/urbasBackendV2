@@ -7,6 +7,16 @@ using urbasBackendV2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Przygotowanie pod deploy I
+builder.Services.ConfigureSwaggerGen(setup =>
+{
+    setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "urbasBackendAPI",
+        Version = "v2"
+    });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -49,12 +59,15 @@ builder.Services.AddCors();
 
 var app = builder.Build();
 
+
+// Przygotowanie pod deploy II
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 // Pozwolenie na Cross-Origin Resource Sharing
 app.UseCors(x => x

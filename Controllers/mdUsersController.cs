@@ -11,7 +11,7 @@ using urbasBackendV2.Services;
 
 namespace urbasBackendV2.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/mdUsers")]
     [ApiController]
     public class mdUsersController : ControllerBase
     {
@@ -43,7 +43,6 @@ namespace urbasBackendV2.Controllers
 
         // GET: api/mdUsers
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<MdUsersDto>>> GetMdUsers()
         {
             var users = await _context.mdUsers.Select(x => UserToDTO(x)).ToListAsync();
@@ -53,7 +52,6 @@ namespace urbasBackendV2.Controllers
 
         // GET: api/mdUsers/5
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<MdUsersDto>> GetMdUser(int id)
         {
             var mdUser = await _context.mdUsers.FindAsync(id);
@@ -64,7 +62,6 @@ namespace urbasBackendV2.Controllers
 
         // PUT: api/mdUsers/5
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<ActionResult<MdUsersDto>> PutMdUsers(int id, MdUsersDto mdUsersDto)
         {
             if (await UserExists(mdUsersDto.Login)) return BadRequest("Login Is Already Taken");
@@ -81,7 +78,6 @@ namespace urbasBackendV2.Controllers
 
         // DELETE: api/mdUsers/5
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult<MdUsersDto>> DeleteMdUsers(int id)
         {
             var mdUser = await _context.mdUsers.FindAsync(id);

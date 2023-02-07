@@ -1,4 +1,5 @@
 {
     "appService.preDeployTask": "publish-release",
-    "appService.deploySubpath": "bin/Release/net7.0/publish"
+    "appService.deploySubpath": "bin\\Release\\net7.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/48d003d8-0c1c-4a47-9d82-e39401287ba2/AppServices/subscriptions/48d003d8-0c1c-4a47-9d82-e39401287ba2/resourceGroups/urbasBackendV2_group/providers/Microsoft.Web/sites/urbasBackendV2"
 }
